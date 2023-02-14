@@ -24,7 +24,41 @@
 
 # Алгоритмы и структуры данных
 
-## 1. Problem 2025
+## 1. Problem 2025: Line Fighting
+
+```python
+T = int(input().strip())
+result = []
+for _ in range(T):
+    n, k = map(int, input().strip().split())
+    a = n // k # standard number of fighters in each team
+    e_t = n % k # number of teams with one extra fighter
+    s_t = k - e_t # number of teams with the standard number of fighters
+
+
+    # Multiply by maximum number of fights between each combination of teams:
+    # First part: Choose two teams in teams with one extra fighter, 
+    part_1 = e_t * (e_t - 1) // 2 * (a + 1)**2
+    # Second part: Choose tow teams in teams with the standard number of fighters
+    part_2 = s_t * (s_t - 1) // 2 * a**2 
+    # Third part: Choose one in teams with one extra fighter and one teams with the standard number of fighters
+    part_3 = s_t * e_t * (a + 1) * a
+    result.append(part_1 + part_2 +part_3)
+for e in result:
+    print(e)
+```
+
+```
+# Input
+3
+6 3
+5 5
+4 2
+# Output
+12
+10
+4
+```
 The code calculates the maximum number of fights between teams in a line fighting competition. The code takes in an integer input, which represents the number of test cases.
 
 A list `result` is created to store the results of each test case. A for loop is used to iterate through the test cases and calculate the maximum number of fights for each.
@@ -43,7 +77,62 @@ The sum of these three parts is then appended to the `result` list, which repres
 
 Finally, the code prints the `result` list, where each element in the list represents the maximum number of fights between teams for each test case.
 
-## 2. Problem 1005
+## 2. Problem 1005: Stone Piles
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main()
+{
+    int n;
+    scanf("%d", &n);
+
+    int weights[n];
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &weights[i]);
+    }
+
+    int result = 100000 * n;
+
+    int combinations = (int)1 << n;
+    // All combination
+    for (int comb = 0; comb < combinations; comb++)
+    {
+        int first_pile = 0, second_pile = 0;
+        // All bit in a combination
+        for (int bit_i = 0; bit_i < n; bit_i++)
+        {
+            int is_ith_bit_1 = (comb >> bit_i) & 1;
+            if (is_ith_bit_1)
+            {
+                first_pile += weights[bit_i];
+            }
+            else
+            {
+                second_pile += weights[bit_i];
+            }
+        }
+        int different = abs(first_pile - second_pile);
+        if (different < result)
+        {
+            result = different;
+        }
+    }
+
+    printf("%d\n", result);
+
+    return 0;
+}
+```
+```
+# Input
+5
+5 8 13 27 14
+# Output
+3
+```
 This is a C program that solves the problem of finding the minimum difference between the sum of two piles of stones given `n` stones and their weights `weights`.
 
 The program starts by reading `n` from the input using the `scanf` function.

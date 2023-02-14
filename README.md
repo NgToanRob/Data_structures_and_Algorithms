@@ -11,7 +11,7 @@
   <img src="doc/Picture1.png" />
 </p>
 
-<p align="center" style ="font-size: 24px"><strong>Лабораторная работа №6 </br>
+<p align="center" style ="font-size: 24px"><strong>Лабораторные работы</br>
 По дисциплине : «Алгоритмы и структуры данных»</br>
 </strong>
 </p>
@@ -19,8 +19,6 @@
 Выполнил: <strong>Нгуен Тоан</strong></br>
 Группа: <strong>R32372</strong>
 </p>
-
-# Лабораторная работа #6
 
 # Алгоритмы и структуры данных
 

@@ -1,5 +1,9 @@
-n =5
-# for i in range(1 << n):
-#     print(type(i))
-print(type(1<<n))
-print(1<<n)
+import matplotlib.pyplot as plt
+a = [19, 19, 20, 19, 20, 19, 21, 22, 40, 39, 40]
+hist = plt.hist(a)
+
+
+print(hist)
+plt.show()
+
+# x ~ 1/2 y

@@ -1,7 +1,3 @@
-'''
-
-'''
-
 
 T = int(input().strip())
 result = []

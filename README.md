@@ -150,7 +150,7 @@ The absolute difference between the sum of stones in the two piles is then calcu
 Finally, the program prints the **minimum difference** found
 
 
-## 4. Problem 1296: Line Fighting
+## 4. Problem 1296: Hyperjump
 ```python
 # Read input
 n = int(input().strip())

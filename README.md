@@ -150,39 +150,6 @@ The absolute difference between the sum of stones in the two piles is then calcu
 Finally, the program prints the **minimum difference** found
 
 
-## 4. Problem 1296: Hyperjump
-```python
-# Read input
-n = int(input().strip())
-a = []
-for i in range(0, n):
-    ele = int(input())
-    a.append(ele) # adding the element
-
-# Main solution
-max_ending_here = 0
-max_so_far = - n * 10e9
-for i in range(n):
-    max_ending_here += a[i]
-    # Cut head of subarray if sum < 0
-    if max_ending_here < 0: max_ending_here = 0
-    # Replace new max potential
-    if max_ending_here > max_so_far:
-        max_so_far = max_ending_here
-print(max_so_far)
-
-```
-This code reads in an integer `n` from the user and creates an empty list `a`. It then reads in `n` more integers from the user and appends them to `a`.
-
-The main solution to the problem is then calculated using the Kadane's algorithm to find the maximum sum subarray. The algorithm initializes two variables, `max_ending_here` and `max_so_far`, both initially set to 0 and negative infinity respectively. It then iterates through the list a and calculates the maximum sum subarray ending at the current index i by adding the element `a[i]` to `max_ending_here`.
-
-If the sum `max_ending_here` becomes negative, it means that the current subarray has a negative contribution to the sum, so we discard it and start a new subarray from the next index. This is achieved by setting `max_ending_here` to 0.
-
-If the current `max_ending_here` sum is greater than the current `max_so_far` sum, then update `max_so_far` to `max_ending_here`. After iterating through the entire list, `max_so_far` will contain the maximum sum of any subarray within a.
-
-Finally, the program prints the value of `max_so_far`, which is the solution to the maximum sum subarray problem.
-
-
 ## 3. Problem 1155: Troubleduons
 ```cpp
 #include <iostream>
@@ -298,3 +265,37 @@ The main function then initializes the eight vertices of the cube with their nam
 Next, it initializes a vector cube containing the eight vertices, and loops over all pairs of vertices to find adjacent vertices. For each adjacent pair, it calls `substraction_V` to subtract the weight of the troubleduons at the two vertices if the weight at both vertices is non-zero.
 
 Finally, it calls `move_W` to transfer the weight of the troubleduons from specific vertices to the top vertices `A` and `B`. It then calls `substraction_V` to subtract the weight of the troubleduons at `A` and `B`, and outputs the sequence of actions stored in `result`.
+
+
+## 4. Problem 1296: Hyperjump
+```python
+# Read input
+n = int(input().strip())
+a = []
+for i in range(0, n):
+    ele = int(input())
+    a.append(ele) # adding the element
+
+# Main solution
+max_ending_here = 0
+max_so_far = - n * 10e9
+for i in range(n):
+    max_ending_here += a[i]
+    # Cut head of subarray if sum < 0
+    if max_ending_here < 0: max_ending_here = 0
+    # Replace new max potential
+    if max_ending_here > max_so_far:
+        max_so_far = max_ending_here
+print(max_so_far)
+
+```
+This code reads in an integer `n` from the user and creates an empty list `a`. It then reads in `n` more integers from the user and appends them to `a`.
+
+The main solution to the problem is then calculated using the Kadane's algorithm to find the maximum sum subarray. The algorithm initializes two variables, `max_ending_here` and `max_so_far`, both initially set to 0 and negative infinity respectively. It then iterates through the list a and calculates the maximum sum subarray ending at the current index i by adding the element `a[i]` to `max_ending_here`.
+
+If the sum `max_ending_here` becomes negative, it means that the current subarray has a negative contribution to the sum, so we discard it and start a new subarray from the next index. This is achieved by setting `max_ending_here` to 0.
+
+If the current `max_ending_here` sum is greater than the current `max_so_far` sum, then update `max_so_far` to `max_ending_here`. After iterating through the entire list, `max_so_far` will contain the maximum sum of any subarray within a.
+
+Finally, the program prints the value of `max_so_far`, which is the solution to the maximum sum subarray problem.
+

@@ -250,6 +250,9 @@ int main(){
 
 }
 ```
+|    ID    |         Date        |    Author   |       Problem      |   Language  | Judgement result | Test # | Execution time | Memory used |
+|:--------:|:-------------------:|:-----------:|:------------------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
+| 10192966 | 05:18:39 6 Mar 2023 | Toan Nguyen | 1155. Troubleduons | G++ 9.2 x64 |     Accepted     |        |      0.001     |    396 KB   |
 
 The main function starts by defining a struct `Vercites` which contains a character `ch` representing the name of the vertex and an integer `w` representing the weight of the troubleduons at that vertex. It also defines a vector `result` to store the sequence of actions required to remove the troubleduons.
 

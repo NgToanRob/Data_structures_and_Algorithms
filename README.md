@@ -22,6 +22,12 @@
 
 # Алгоритмы и структуры данных
 
+## Table of Contents
+1. [Problem 2025: Line Fighting](#1-problem-2025-line-fightingProblem)
+2. [Problem 1005: Stone Piles](#2-problem-1005-stone-piles)
+3. [Problem 1155: Troubleduons](#3-problem-1155-troubleduons)
+4. [Problem 1296: Hyperjump](#4-problem-1296-hyperjump)
+
 ## 1. Problem 2025: Line Fighting
 
 ```python

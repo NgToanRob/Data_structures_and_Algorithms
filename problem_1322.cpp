@@ -38,10 +38,6 @@ int main()
     */
     for (int i = 1; i < 53; i++)
         contains[i] += contains[i - 1];
-    
-    for (int i = 0; i<53 ;i++){
-        cout << i << " " << contains[i] << endl;
-    }
             
     for (int i = 0; i < length; i++) {
         int index = get_index(word[i]);
@@ -49,14 +45,22 @@ int main()
         before the current character. And then add 1 to the index because of 
         the repetition of the current character.
         */ 
-        next_position[contains[index]++] = i;
+        int a = contains[index] ++;
+        next_position[a] = i;
     }
 
-    for (int i = 0; i < length ; i++) {
-        cout << next_position[i] <<endl;
-    }
-    for (int i = 0; i < length; i++)
+    /*
+    0   A   a   4
+    1   a   n   0
+    2   a   n   5
+    3   a   b   6
+    4   b   A   3
+    5   n   a   1
+    6   n   a   2
+    */
+    for (int i = 0; i < length; i++) {
         cout << word[number = next_position[number]];
+    }
     cout << endl;
     
     return 0;

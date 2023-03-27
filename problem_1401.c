@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
+
 size_t n;
 int map[512][512];
 int k = 3; // the number to count the squares

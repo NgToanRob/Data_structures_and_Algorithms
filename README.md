@@ -621,3 +621,78 @@ Here is a brief overview of the main steps in the code:
 5. For each character in the input string, its position in the transformed string is calculated by finding the total number of characters that come before it in the sorted order of the input string, and then adding 1 to account for the repetition of the character.
 
 6. The transformed string is then output to the console by starting at the position specified by the "number" variable and outputting the characters in the "next_position" array in sequence.
+
+## 8. Problem 1604: Country of Fools
+|    ID    |         Date         |    Author   |         Problem        |   Language  | Judgement result | Test # | Execution time | Memory used |
+|:--------:|:--------------------:|:-----------:|:----------------------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
+| 10220312 | 04:30:17 28 Mar 2023 | Toan Nguyen | 1604. Country of Fools | G++ 9.2 x64 |     Accepted     |        |      0.093     |    488 KB   |
+
+```cpp
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+bool comp(pair<int, int> &a, pair<int, int> &b)
+{
+    return a.second > b.second;
+}
+
+/*
+ *  Shifts the value of the signs to the right
+ *
+ *  @param signs: array of signs
+ *  @param n: number of signs
+ *  @param i: index of the sign to be shifted
+ */
+void shift_signs_value(pair<int, int> *signs, int n, int i)
+{
+    int j = i + 1;
+    while (signs[i].second < signs[j].second)
+    {
+        swap(signs[i], signs[j]);
+        i++, j++;
+        if (j == n)
+            break;
+    }
+}
+
+int main()
+{
+    int n = 0;
+    cin >> n;
+    pair<int, int> signs[n]; //<index, number of signs left>
+    int sum = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        int x = 0;
+        cin >> x;
+        sum += x;
+        signs[i] = make_pair(i + 1, x);
+    }
+    sort(signs, signs + n, comp); // descending value of order
+
+    while (sum--)
+    {
+        cout << signs[0].first << " ";
+        signs[0].second--;
+        if (n > 1 && signs[1].second > 0)
+        {
+            cout << signs[1].first << " ";
+            signs[1].second--;
+            sum--;
+        }
+        if (n > 2)
+            shift_signs_value(signs, n, 1);
+        if (n > 1)
+            shift_signs_value(signs, n, 0);
+    }
+    cout << endl;
+}
+```
+This code solves the "Speed Limit" problem by using an array of pairs to store the frequency of each speed limit sign, sorted in descending order based on the frequency. The algorithm then iterates through the array and prints out the index of the sign with the highest frequency. If there is a sign with a frequency greater than zero following it, the algorithm prints out the index of that sign as well.
+
+After printing the two signs, the algorithm shifts the position of the two signs in the array based on the frequency. The sign with the higher frequency is shifted to the left, while the sign with the lower frequency is shifted to the right.
+
+This process is repeated until all of the signs have been printed. The output is a list of the indices of the speed limit signs in the order they should be placed on the motorway to maximize the number of times a driver must change their speed.
+

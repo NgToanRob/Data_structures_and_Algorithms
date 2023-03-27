@@ -27,6 +27,9 @@
 2. [Problem 1005: Stone Piles](#2-problem-1005-stone-piles)
 3. [Problem 1155: Troubleduons](#3-problem-1155-troubleduons)
 4. [Problem 1296: Hyperjump](#4-problem-1296-hyperjump)
+5. [Problem 1401: Gamer](#5-problem-1401-gamers)
+6. [Problem 1207: Median on the plane](#6-problem-1207-median-on-the-plane)
+
 
 ## 1. Problem 2025: Line Fighting
 
@@ -308,3 +311,227 @@ If the current `max_ending_here` sum is greater than the current `max_so_far` su
 
 Finally, the program prints the value of `max_so_far`, which is the solution to the maximum sum subarray problem.
 
+## 5. Problem 1401: Gamers
+|    ID    |         Date         |    Author   |    Problem   |   Language  | Judgement result | Test # | Execution time | Memory used |
+|:--------:|:--------------------:|:-----------:|:------------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
+| 10218623 | 04:44:43 27 Mar 2023 | Toan Nguyen | 1401. Gamers | G++ 9.2 x64 |     Accepted     |        |      0.015     |   1 172 KB  |
+
+```C
+#include <stdio.h>
+#include <math.h>
+
+size_t n;
+int map[512][512];
+int k = 3; // the number to count the squares
+
+void reset_map(int map[][512], size_t n)
+{
+    int size = pow(2, n);
+    for (size_t i = 0; i < size; i++)
+    {
+        for (size_t j = 0; j < size; j++)
+        {
+            map[i][j] = 0;
+        }
+    }
+}
+
+void print_map(int map[][512], size_t n)
+{
+    int size = pow(2, n);
+    for (size_t i = 0; i < size; i++)
+    {
+        for (size_t j = 0; j < size; j++)
+        {
+            printf("%3d ", map[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * It fills a 2x2 square with numbers, except for the hole
+ *
+ * @param x x coordinate of the square
+ * @param y the y coordinate of the top left corner of the square
+ * @param hx the x coordinate of the hole
+ * @param hy the y coordinate of the hole
+ */
+void fill_square_size_2(int x, int y, int hx, int hy)
+{
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            int is_the_hole = (x + i == hx && y + j == hy);
+            if (!is_the_hole)
+            {
+                map[x + i][y + j] = k++ / 3;
+            }
+        }
+    }
+}
+
+void solve(int size, int x, int y, int hx, int hy)
+{
+    // The simplest case
+    if (size == 2)
+    {
+        fill_square_size_2(x, y, hx, hy);
+        return;
+    }
+
+    // find the quadrant block that contains the hole
+    int hi, hj;
+    int is_left = hx < x + size / 2;
+    int is_top = hy < y + size / 2;
+    hi = !is_left;
+    hj = !is_top;
+
+    // fill the middle triangle with numbers, expect for the hole
+    int triangle_x = x + size / 2 - 1, triangle_y = y + size / 2 - 1;
+    fill_square_size_2(triangle_x, triangle_y, triangle_x + hi, triangle_y + hj);
+
+    // Recursively filling the rest blocks
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            int is_contain_the_hole = i == hi && j == hj;
+            if (!is_contain_the_hole)
+            {
+                int hole_x = x + size / 2 - 1 + i;
+                int hole_y = y + size / 2 - 1 + j;
+                solve(size / 2, x + i * size / 2, y + j * size / 2, hole_x, hole_y);
+            }
+            else
+            {
+                solve(size / 2, x + i * size / 2, y + j * size / 2, hx, hy);
+            }
+        }
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    /* code */
+    scanf("%zu", &n);
+    int size = pow(2, n);
+
+    int hx, hy; // the coordinates of the hole
+    scanf("%d %d", &hx, &hy);
+    hx--;
+    hy--;
+
+    reset_map(map, n);
+
+    solve(size, 0, 0, hx, hy);
+
+    print_map(map, n);
+    return 0;
+}
+
+```
+
+ The program uses a recursive algorithm that fills the square in a divide-and-conquer approach. The square is recursively divided into four quadrants until the size of each quadrant is equal to 2. At each recursion level, a 2x2 square is filled with numbers, except for the hole cell, and the hole cell is passed down to the recursive call of the quadrant that contains it.
+
+The `main` function of the program reads the input size of the square and the coordinates of the hole cell from the standard input, initializes the map to zero, and calls the `solve` function with the size of the square and the coordinates of the hole cell. After the `solve` function returns, the `print_map` function is called to print the map of the filled square.
+
+The `reset_map` function initializes the map to zero by iterating over all the cells of the square and setting their values to zero.
+
+The `print_map` function prints the map of the filled square by iterating over all the cells of the square and printing their values. The `%3d` format specifier is used to print each value in a field of width 3 characters, which makes the output aligned.
+
+The `fill_square_size_2` function fills a 2x2 square with numbers, except for the hole cell. The function takes as input the coordinates of the top-left corner of the square and the coordinates of the hole cell. It iterates over all the cells of the square and sets their values to a sequence of numbers, skipping the cell that corresponds to the hole cell.
+
+The `solve` function is the heart of the algorithm that fills the square. The function takes as input the size of the square, the coordinates of the top-left corner of the square, and the coordinates of the hole cell. The function first checks if the size of the square is equal to 2, in which case it calls the `fill_square_size_2` function to fill the square. Otherwise, it finds the quadrant block that contains the hole cell, fills the middle triangle of the square with numbers, except for the hole cell, and recursively calls itself on each of the four quadrants of the square, passing down the coordinates of the hole cell to the quadrant that contains it.
+
+## 6. Problem 1207: Median on the plane
+|    ID    |         Date         |    Author   |          Problem          |   Language  | Judgement result | Test # | Execution time | Memory used |
+|:--------:|:--------------------:|:-----------:|:-------------------------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
+| 10214245 | 20:33:26 23 Mar 2023 | Toan Nguyen | 1207. Median on the Plane | GCC 9.2 x64 |     Accepted     |        |      0.468     |    304 KB   | 
+
+```C
+#include <stdio.h>
+#include <inttypes.h>
+#include <stdlib.h>
+
+struct point
+{
+    // point: (x, y)
+    int64_t x, y;
+};
+
+struct line
+{
+    // line: ax + by + c = 0
+    int64_t a, b, c;
+};
+
+struct line get_line(struct point point1, struct point point2) {
+    struct line line;
+    line.a = point1.y - point2.y;
+    line.b = point2.x - point1.x;
+    line.c = point1.x * point2.y - point2.x * point1.y;
+    return line;
+}
+
+int64_t dot_product_between_point_and_line(struct point point, struct line line) {
+    return line.a * point.x + line.b * point.y + line.c;
+}
+
+int are_equal_sets(struct point *points, int n, struct line line) {
+    int left = 0;
+    int right = 0;
+    for (int i = 0; i < n; i++) {
+        int64_t dot_product = dot_product_between_point_and_line(points[i], line);
+        if (dot_product > 0) {
+            left++;
+        } else if (dot_product < 0) {
+            right++;
+        }
+    }
+    return left == right;
+}
+
+int main()
+{
+
+    int n;
+    scanf("%d", &n);
+
+    struct point *points;
+
+    points = (struct point *)malloc(sizeof(struct point) * n);
+
+    for (size_t i = 0; i < n; i++)
+    {
+        scanf("%" SCNd64 " %" SCNd64, &points[i].x, &points[i].y);
+    }
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            struct line line = get_line(points[i], points[j]);
+            if (are_equal_sets(points, n, line))
+            {
+                printf("%d %d\n", i + 1, j + 1);
+                return 0;
+            }
+        }
+    }
+
+    return 0;
+}
+```
+The code is an implementation of the gift wrapping algorithm to solve the convex hull problem. Specifically, it looks for a line that separates the set of points into two equal-sized subsets, and returns the indices of the two points that define this line.
+
+The main function first reads in the number of points `n`, and then dynamically allocates an array of `n` `point` structs. It then reads in the coordinates of each point.
+
+Next, the function iterates over all pairs of points and computes the line that passes through them using the `get_line` function. For each line, it checks whether it separates the set of points into two equal-sized subsets using the `are_equal_sets` function. If it does, it prints the indices of the two points and exits the program.
+
+The `get_line` function takes two `point` structs as input and returns a `line` struct. It computes the coefficients `a`, `b`, and `c` of the line `ax + by + c = 0` that passes through the two points.
+
+The `dot_product_between_point_and_line` function takes a `point` struct and a `line` struct as input and returns the dot product between the point and the line. It computes `ax + by + c`.
+
+The `are_equal_sets` function takes an array of `point` structs, the number of points `n`, and a `line` struct as input, and returns a boolean indicating whether the line separates the set of points into two equal-sized subsets. It iterates over all points in the array and computes the dot product between each point and the line using the `dot_product_between_point_and_line` function. If the dot product is positive, it increments a counter for the left subset. If it is negative, it increments a counter for the right subset. If the counters for the left and right subsets are equal at the end of the loop, the function returns true. Otherwise, it returns false.

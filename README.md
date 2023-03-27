@@ -29,7 +29,7 @@
 4. [Problem 1296: Hyperjump](#4-problem-1296-hyperjump)
 5. [Problem 1401: Gamer](#5-problem-1401-gamers)
 6. [Problem 1207: Median on the plane](#6-problem-1207-median-on-the-plane)
-7. [Problem 1322: Spy](#7-problem-1322-scy)
+7. [Problem 1322: Spy](#7-problem-1322-spy)
 8. [Problem 1604: Country of Fools](#9-problem-1604-country-of-fools)
 
 

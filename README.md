@@ -29,6 +29,7 @@
 4. [Problem 1296: Hyperjump](#4-problem-1296-hyperjump)
 5. [Problem 1401: Gamer](#5-problem-1401-gamers)
 6. [Problem 1207: Median on the plane](#6-problem-1207-median-on-the-plane)
+7. [Problem 1322: Spy](#)
 
 
 ## 1. Problem 2025: Line Fighting
@@ -38,9 +39,9 @@ T = int(input().strip())
 result = []
 for _ in range(T):
     n, k = map(int, input().strip().split())
-    a = n // k # standard number of fighters in each team
     e_t = n % k # number of teams with one extra fighter
     s_t = k - e_t # number of teams with the standard number of fighters
+    a = n // k # standard number of fighters in each team
 
 
     # Multiply by maximum number of fights between each combination of teams:
@@ -535,3 +536,88 @@ The `get_line` function takes two `point` structs as input and returns a `line` 
 The `dot_product_between_point_and_line` function takes a `point` struct and a `line` struct as input and returns the dot product between the point and the line. It computes `ax + by + c`.
 
 The `are_equal_sets` function takes an array of `point` structs, the number of points `n`, and a `line` struct as input, and returns a boolean indicating whether the line separates the set of points into two equal-sized subsets. It iterates over all points in the array and computes the dot product between each point and the line using the `dot_product_between_point_and_line` function. If the dot product is positive, it increments a counter for the left subset. If it is negative, it increments a counter for the right subset. If the counters for the left and right subsets are equal at the end of the loop, the function returns true. Otherwise, it returns false.
+
+
+## 6. Problem 1322: Spy
+|    ID    |         Date         |    Author   |  Problem  |   Language  | Judgement result | Test # | Execution time | Memory used |
+|:--------:|:--------------------:|:-----------:|:---------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
+| 10219178 | 17:11:51 27 Mar 2023 | Toan Nguyen | 1322. Spy | G++ 9.2 x64 |     Accepted     |        |      0.031     |    884 KB   |
+
+```cpp
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+char word[100001];
+int next_position[100001];
+
+int get_index(char character)
+{
+    if (character >= 'A' && character <= 'Z')
+        return character - 'A';
+    if (character == '_')
+        return 26;
+    return character - 'a' + 27;
+}
+
+int main()
+{
+    int number, length;
+    int contains[54];
+    
+    cin >> number >> word;
+    memset(contains, 0, sizeof(contains));
+    length = strlen(word);
+    number--;
+    
+    for (int i = 0; i < length; i++)
+        contains[get_index(word[i]) + 1]++;
+
+    
+    // Counting the number of characters before the current character.
+    
+    for (int i = 1; i < 53; i++)
+        contains[i] += contains[i - 1];
+            
+    for (int i = 0; i < length; i++) {
+        int index = get_index(word[i]);
+        /*set next_position in the index which is the number of total characters 
+        before the current character. And then add 1 to the index because of 
+        the repetition of the current character.
+        */ 
+        int a = contains[index] ++;
+        next_position[a] = i;
+    }
+
+    /*
+    0   A   a   4
+    1   a   n   0
+    2   a   n   5
+    3   a   b   6
+    4   b   A   3
+    5   n   a   1
+    6   n   a   2
+    */
+    for (int i = 0; i < length; i++) {
+        cout << word[number = next_position[number]];
+    }
+    cout << endl;
+    
+    return 0;
+}
+```
+In this implementation, the BWT is performed on the input string, and the resulting transformed string is output to the console.
+
+Here is a brief overview of the main steps in the code:
+
+1. The input string is read from the console along with an integer number.
+
+2. An array called "contains" is used to count the number of occurrences of each character in the input string.
+
+3. The "contains" array is then modified to contain the total number of characters that come before each character in the sorted order of the input string.
+
+4. A new array called "next_position" is created to store the positions of the characters in the transformed string.
+
+5. For each character in the input string, its position in the transformed string is calculated by finding the total number of characters that come before it in the sorted order of the input string, and then adding 1 to account for the repetition of the character.
+
+6. The transformed string is then output to the console by starting at the position specified by the "number" variable and outputting the characters in the "next_position" array in sequence.

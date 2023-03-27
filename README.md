@@ -29,7 +29,8 @@
 4. [Problem 1296: Hyperjump](#4-problem-1296-hyperjump)
 5. [Problem 1401: Gamer](#5-problem-1401-gamers)
 6. [Problem 1207: Median on the plane](#6-problem-1207-median-on-the-plane)
-7. [Problem 1322: Spy](#)
+7. [Problem 1322: Spy](#7-problem-1322-scy)
+8. [Problem 1604: Country of Fools](#9-problem-1604-country-of-fools)
 
 
 ## 1. Problem 2025: Line Fighting
@@ -538,7 +539,7 @@ The `dot_product_between_point_and_line` function takes a `point` struct and a `
 The `are_equal_sets` function takes an array of `point` structs, the number of points `n`, and a `line` struct as input, and returns a boolean indicating whether the line separates the set of points into two equal-sized subsets. It iterates over all points in the array and computes the dot product between each point and the line using the `dot_product_between_point_and_line` function. If the dot product is positive, it increments a counter for the left subset. If it is negative, it increments a counter for the right subset. If the counters for the left and right subsets are equal at the end of the loop, the function returns true. Otherwise, it returns false.
 
 
-## 6. Problem 1322: Spy
+## 7. Problem 1322: Spy
 |    ID    |         Date         |    Author   |  Problem  |   Language  | Judgement result | Test # | Execution time | Memory used |
 |:--------:|:--------------------:|:-----------:|:---------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
 | 10219178 | 17:11:51 27 Mar 2023 | Toan Nguyen | 1322. Spy | G++ 9.2 x64 |     Accepted     |        |      0.031     |    884 KB   |
@@ -622,7 +623,7 @@ Here is a brief overview of the main steps in the code:
 
 6. The transformed string is then output to the console by starting at the position specified by the "number" variable and outputting the characters in the "next_position" array in sequence.
 
-## 8. Problem 1604: Country of Fools
+## 9. Problem 1604: Country of Fools
 |    ID    |         Date         |    Author   |         Problem        |   Language  | Judgement result | Test # | Execution time | Memory used |
 |:--------:|:--------------------:|:-----------:|:----------------------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
 | 10220312 | 04:30:17 28 Mar 2023 | Toan Nguyen | 1604. Country of Fools | G++ 9.2 x64 |     Accepted     |        |      0.093     |    488 KB   |

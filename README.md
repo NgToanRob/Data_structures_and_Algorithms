@@ -571,14 +571,19 @@ int main()
     memset(contains, 0, sizeof(contains));
     length = strlen(word);
     number--;
-
     
     for (int i = 0; i < length; i++)
         contains[get_index(word[i]) + 1]++;
 
     
     // Counting the number of characters before the current character.
-    
+    /*
+    Số lượng liên tiếp xuất hiện của một phần tử i trong chuỗi đã được mã hóa 
+    bằng BWT được tính bằng cách đếm số lần xuất hiện của ký tự tương ứng trong 
+    chuỗi gốc trước khi mã hóa. Khi đó, vị trí đầu tiên của ký tự i trong chuỗi 
+    gốc là tổng số lần xuất hiện của các ký tự trước nó (tính từ A-Z, _, a-z) 
+    cộng với số lần xuất hiện liên tiếp của ký tự i trong chuỗi đã được mã hóa.
+    */
     for (int i = 1; i < 53; i++)
         contains[i] += contains[i - 1];
             
@@ -591,7 +596,6 @@ int main()
         int a = contains[index] ++;
         next_position[a] = i;
     }
-
     /*
     0   _   a   4
     1   _   n   0
@@ -602,7 +606,7 @@ int main()
     6   _   a   2
     */
     for (int i = 0; i < length; i++) {
-        cout << word[number = next_position[number]];
+        cout << word[number = next_position[number]]; // get the charater with position number in input word
     }
     cout << endl;
     

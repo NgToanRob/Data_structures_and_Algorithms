@@ -23,7 +23,6 @@ int main()
     memset(contains, 0, sizeof(contains));
     length = strlen(word);
     number--;
-    cout << number << endl;
     
     for (int i = 0; i < length; i++)
         contains[get_index(word[i]) + 1]++;
@@ -49,11 +48,6 @@ int main()
         int a = contains[index] ++;
         next_position[a] = i;
     }
- 
-    for (int i = 0; i < length; i++) {
-        cout << next_position[i] << " ";
-    }
-    cout << word[number] << endl;
     /*
     0   _   a   4
     1   _   n   0

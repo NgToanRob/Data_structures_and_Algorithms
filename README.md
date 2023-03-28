@@ -31,6 +31,7 @@
 6. [Problem 1207: Median on the plane](#6-problem-1207-median-on-the-plane)
 7. [Problem 1322: Spy](#7-problem-1322-spy)
 8. [Problem 1604: Country of Fools](#9-problem-1604-country-of-fools)
+9. [Problem 1726: Visits]()
 
 
 ## 1. Problem 2025: Line Fighting
@@ -697,3 +698,45 @@ After printing the two signs, the algorithm shifts the position of the two signs
 
 This process is repeated until all of the signs have been printed. The output is a list of the indices of the speed limit signs in the order they should be placed on the motorway to maximize the number of times a driver must change their speed.
 
+## 9. Problem 1726: Visits
+|    ID    |         Date         |    Author   |    Problem   |   Language  | Judgement result | Test # | Execution time | Memory used |
+|:--------:|:--------------------:|:-----------:|:------------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
+| 10221294 | 16:23:07 28 Mar 2023 | Toan Nguyen | 1726. Visits | G++ 9.2 x64 |     Accepted     |        |      0.296     |   1 972 KB  |
+```cpp
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+typedef long long ll;
+
+int main() {
+    ll n = 0;
+    cin >> n;
+    ll xs[n];
+    ll ys[n];
+    ll total_distance = 0;
+    for (ll i = 0; i < n; ++i) {
+        cin >> xs[i] >> ys[i];
+    }
+    sort(xs, xs + n);
+    sort(ys, ys + n);
+    for (ll i = 1; i < n; ++i) {
+        total_distance += (xs[i] - xs[i - 1]) * i * (n - i) * 2;
+        total_distance += (ys[i] - ys[i - 1]) * i * (n - i) * 2;
+    }
+    cout << total_distance / (n * (n - 1)) << endl;
+}
+```
+
+This program takes in the input of a number `n`, followed by `n` pairs of integer coordinates, and calculates the average distance between all pairs of coordinates.
+
+The program first declares an integer `n` and reads in the input value. It then creates two arrays `xs` and `ys` of length `n` to store the x and y coordinates of the input pairs respectively.
+
+Next, it enters a for loop to read in the n pairs of coordinates and store them in the `xs` and `ys` arrays. The `sort()` function is called on both `xs` and `ys` arrays to sort the values in `ascending` order.
+
+Another `for` loop is used to calculate the total distance between each pair of coordinates. It does this by calculating the difference between the `x` values and `y` values of each pair, multiplying this by `i` (the index of the current coordinate in the sorted array) and (n-i) (the number of coordinates remaining after the current coordinate), and multiplying the result by 2. The total_distance variable is updated by adding these values for both the xs and ys arrays.
+
+For example, let's consider a road segment `S` at the `i`-th position. There are `i` points to the left of the road segment that need to be passed through to reach the right side of the road segment, and similarly there are `n-i` points to the right of the road segment that need to be passed through to reach the left side of the road segment. Therefore, we can calculate the total number of road segments travelled as `i * (n - i) * 2`.
+
+Finally, the program outputs the average distance by dividing the total_distance variable by `n*(n-1)` which is the total number of possible distances between any two pairs of houses in the committee..

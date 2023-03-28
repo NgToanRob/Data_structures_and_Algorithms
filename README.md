@@ -31,7 +31,7 @@
 6. [Problem 1207: Median on the plane](#6-problem-1207-median-on-the-plane)
 7. [Problem 1322: Spy](#7-problem-1322-spy)
 8. [Problem 1604: Country of Fools](#9-problem-1604-country-of-fools)
-9. [Problem 1726: Visits]()
+9. [Problem 1726: Visits](#10-problem-1726-visits)
 
 
 ## 1. Problem 2025: Line Fighting
@@ -698,7 +698,7 @@ After printing the two signs, the algorithm shifts the position of the two signs
 
 This process is repeated until all of the signs have been printed. The output is a list of the indices of the speed limit signs in the order they should be placed on the motorway to maximize the number of times a driver must change their speed.
 
-## 9. Problem 1726: Visits
+## 10. Problem 1726: Visits
 |    ID    |         Date         |    Author   |    Problem   |   Language  | Judgement result | Test # | Execution time | Memory used |
 |:--------:|:--------------------:|:-----------:|:------------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
 | 10221294 | 16:23:07 28 Mar 2023 | Toan Nguyen | 1726. Visits | G++ 9.2 x64 |     Accepted     |        |      0.296     |   1 972 KB  |

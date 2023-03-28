@@ -571,6 +571,7 @@ int main()
     memset(contains, 0, sizeof(contains));
     length = strlen(word);
     number--;
+
     
     for (int i = 0; i < length; i++)
         contains[get_index(word[i]) + 1]++;
@@ -592,13 +593,13 @@ int main()
     }
 
     /*
-    0   A   a   4
-    1   a   n   0
-    2   a   n   5
-    3   a   b   6
+    0   _   a   4
+    1   _   n   0
+    2   _   n   5
+    3   _   b   6
     4   b   A   3
-    5   n   a   1
-    6   n   a   2
+    5   _   a   1
+    6   _   a   2
     */
     for (int i = 0; i < length; i++) {
         cout << word[number = next_position[number]];

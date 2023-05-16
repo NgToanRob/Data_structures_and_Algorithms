@@ -32,6 +32,8 @@
 7. [Problem 1322: Spy](#7-problem-1322-spy)
 8. [Problem 1604: Country of Fools](#9-problem-1604-country-of-fools)
 9. [Problem 1726: Visits](#10-problem-1726-visits)
+10. [Problem 1067: Disk Tree](#11-problem-1067-disk-tree)
+11. [Problem 1494: Monobilliards]()
 
 
 ## 1. Problem 2025: Line Fighting
@@ -745,3 +747,116 @@ Another `for` loop is used to calculate the total distance between each pair of 
 For example, let's consider a road segment `S` at the `i`-th position. There are `i` points to the left of the road segment that need to be passed through to reach the right side of the road segment, and similarly there are `n-i` points to the right of the road segment that need to be passed through to reach the left side of the road segment. Therefore, we can calculate the total number of road segments travelled as `i * (n - i) * 2`.
 
 Finally, the program outputs the average distance by dividing the total_distance variable by `n*(n-1)` which is the total number of possible distances between any two pairs of houses in the committee..
+
+## 11. Problem 1067: Disk Tree
+|    ID    |         Date         |    Author   | Problem |   Language  | Judgement result | Test # | Execution time | Memory used |
+|:--------:|:--------------------:|:-----------:|:-------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
+| 10284164 | 19:48:30 16 May 2023 | Toan Nguyen | 1067    | G++ 9.2 x64 | Accepted         |        | 0.031          | 4 404 KB    |
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct Dir
+{
+    map<string, Dir *> subs;
+} dirs[50001];
+
+int p = 1;
+
+Dir *addDir(Dir *dir, string str)
+{
+    auto &d = dir->subs[str];
+    if (!d)
+        d = &dirs[p++];
+    return d;
+}
+
+void print(Dir *dir, int depth = 0)
+{
+    for (auto s : dir->subs)
+    {
+        for (int i = 0; i < depth; i++)
+            cout << " ";
+        cout << s.first << "\n";
+        print(s.second, depth + 1);
+    }
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    for(int i = 0; i < n; i++)
+    {
+        string str, dirstr;
+        cin >> str;
+        stringstream ss(str);
+        Dir* dir = &dirs[0];
+        while (getline(ss, dirstr, '\\'))
+            dir = addDir(dir, dirstr);
+    }
+    print(&dirs[0]);
+}
+```
+
+This program reads a list of directory names and builds a tree representing the hierarchy of those directories. It then prints the tree to the console.
+
+The program stores the directories in a tree-like structure, with each directory represented by a `Dir` object. A `Dir` object contains a map of its subdirectories, where the keys are the names of the subdirectories and the values are pointers to their corresponding `Dir` objects.
+
+In the `addDir` function, a new subdirectory is added to a given parent directory by first checking if it already exists in the parent directory's map of subdirectories. If it does not exist, a new `Dir` object is created and added to the `dirs` array, and a pointer to the new object is added to the parent directory's `subs` map.
+
+The `print` function then traverses the tree starting from the top-level directory and prints each subdirectory's name with an appropriate indentation level to represent its position in the tree.
+
+The program reads each directory name from the input, parses out the individual subdirectory names, and adds them to the tree using the `addDir` function. Finally, it calls `print` on the top-level directory to output the entire directory tree.
+
+## 12. Problem 1494: Monobilliards
+|    ID    |         Date         |    Author   |       Problem       |   Language  | Judgement result | Test # | Execution time | Memory used |
+|:--------:|:--------------------:|:-----------:|:-------------------:|:-----------:|:----------------:|:------:|:--------------:|:-----------:|
+| 10284443 | 03:27:42 17 May 2023 | Toan Nguyen | 1494. Monobilliards | G++ 9.2 x64 |     Accepted     |        |      0.156     |    648 KB   |
+
+```cpp
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main(void)
+{
+    int n;
+    cin >> n;
+    bool cheating = false;
+    int m = 0;
+    stack<int> s;
+
+    for (int i = 0, x; i < n; i++)
+    {
+        cin >> x;
+        // Push from 1 to x-th to stack
+        while (m < x)
+            s.push(++m);
+        // Check the last same number
+        if (s.top() != x)
+            cheating = true;
+        // Pop from stack to check next ball
+        s.pop();
+    }
+
+    if (cheating)
+        cout << "Cheater\n";
+    else
+        cout << "Not a proof\n";
+}
+```
+This program checks if a list of billiard balls retrieved from a pool table have been retrieved in sequential order or not. If they have not, then it signals cheating has occurred and prints "Cheater". If they have been retrieved sequentially, it prints "Not a proof".
+
+The program initializes a boolean variable `cheating` to `false`. It also initializes an integer variable `m` to `0`. It creates an empty stack of integers `s`.
+
+It reads in the number of billiard balls `n` from input. It then runs a `for` loop `n` times to read in the order of balls retrieved by the inspector. Inside this loop, it reads in each ball number and checks if it is in sequence with previously retrieved balls or not.
+
+To do this, it first checks if the current ball number is greater than the previously retrieved ball number `m`. If it is, then it pushes `m+1`, `m+2`, ... , `x-1` onto the stack until it reaches the current ball number `x`. 
+
+If the current ball number `x` is not equal to the number on the top of the stack, then cheating has occurred and sets the boolean variable `cheating` to `true`.
+
+Finally, after reading all the ball numbers, it checks if `cheating` is `true` or `false`. If `cheating` is `true`, it prints "Cheater". If `cheating` is `false`, it prints "Not a proof".
+
